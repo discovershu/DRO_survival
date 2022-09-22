@@ -100,7 +100,7 @@ Please kindly consider citing our paper in your publications.
 @article{hu2022drocox,
   title={Distributionally Robust Survival Analysis: A Novel Fairness Loss Without Demographics},
   author={Shu Hu and George H. Chen},
-  journal={ArXiv},
+  journal={Working draft},
   year={2022}
 }
 ```
