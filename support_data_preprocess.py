@@ -89,7 +89,7 @@ def support_preprocess():
                     crea = float(crea)
 
                 d_time = float(row[5])
-                death = bool(row[1])
+                death = bool(int(row[1]))
 
                 X.append([age, sex, race, num_co, diabetes, dementia, ca,
                           meanbp, hrt, resp, temp, wblc, sod, crea])
