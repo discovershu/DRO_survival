@@ -235,4 +235,4 @@ def predict_survival_function(linear_predictor,event, time, X):
     survival : ndarray, shape = (n_samples,)
         Predicted survival functions.
     """
-    return _baseline_model.get_survival_function(linear_predictor)
+    return _baseline_model.get_survival_function(X)
