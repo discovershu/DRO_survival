@@ -1,4 +1,6 @@
 import numpy as np
+from sksurv.metrics import concordance_index_censored, concordance_index_ipcw
+from sksurv.util import Surv
 #%% fairness metric: individual fairness
 def individual_fairness(prediction,X):
     HazardFunction = np.exp(prediction)
@@ -81,3 +83,82 @@ def intersect_fairness(prediction,S,intersect_groups):
             else:
                 epsilon = max(epsilon,abs(np.log(avg_h_ratio_group[i])-np.log(avg_h_ratio_group[j]))) 
     return epsilon
+
+def CI(prediction, data_event, data_time, S):
+    C_group = np.zeros(len(np.unique(S)), dtype=float)
+    P_group = np.zeros(len(np.unique(S)), dtype=float)
+
+    for i in range(len(prediction)):
+        for j in range(len(prediction)):
+            if j==i:
+                continue
+            else:
+                if ((data_time[i]<data_time[j]) and data_event[i]==False) \
+                        or ((data_time[i]>data_time[j]) and data_event[j]==False) \
+                        or ((data_time[i]==data_time[j]) and (data_event[i]==False and data_event[j]==False)):
+                    continue
+                else:
+                    P_group[S[i]] = P_group[S[i]] + 1.0
+                if data_time[i]<data_time[j]:
+                    if prediction[i]>prediction[j]:
+                        C_group[S[i]] = C_group[S[i]] + 1.0
+                    elif prediction[i]==prediction[j]:
+                        C_group[S[i]] = C_group[S[i]] + 0.5
+                elif data_time[i]>data_time[j]:
+                    if prediction[i]<prediction[j]:
+                        C_group[S[i]] = C_group[S[i]] + 1.0
+                    elif prediction[i]==prediction[j]:
+                        C_group[S[i]] = C_group[S[i]] + 0.5
+                elif data_time[i] == data_time[j]:
+                    if data_event[i]==True and data_event[j]==True:
+                        if prediction[i]==prediction[j]:
+                            C_group[S[i]] = C_group[S[i]] + 1.0
+                        else:
+                            C_group[S[i]] = C_group[S[i]] + 0.5
+                    elif (data_event[i]==False) and (data_event[j]==True) and (prediction[i]<prediction[j]):
+                        C_group[S[i]] = C_group[S[i]] + 1.0
+                    elif (data_event[i]==True) and (data_event[j]==False) and (prediction[i]>prediction[j]):
+                        C_group[S[i]] = C_group[S[i]] + 1.0
+                    else:
+                        C_group[S[i]] = C_group[S[i]] + 0.5
+
+    CF = C_group/P_group
+
+    CI = 0
+    for i in range(len(np.unique(S))-1):
+        for j in range(i+1,len(np.unique(S))):
+            temp = np.abs(CF[i] - CF[j])
+            if temp > CI:
+                CI = temp
+
+    return CI*100
+
+def C_index_difference(unique_elements, S, y_train, event_test, time_test, prediction_test):
+    c_index_group = []
+    c_td_index_group = []
+    for i in unique_elements:
+        if len(S.shape)==1:
+            data_event_test_group = event_test[S == i]
+            data_time_test_group = time_test[S == i]
+            model_prediction_group = prediction_test[S == i]
+        else:
+            data_event_test_group = event_test[(S == i).all(axis=1)]
+            data_time_test_group = time_test[(S == i).all(axis=1)]
+            model_prediction_group = prediction_test[(S == i).all(axis=1)]
+        c_index_group.append(
+            concordance_index_censored(data_event_test_group, data_time_test_group, model_prediction_group)[0])
+        c_td_index_group.append(concordance_index_ipcw(y_train, Surv.from_arrays(event=data_event_test_group,
+                                                                                      time=data_time_test_group),
+                                                       model_prediction_group)[0])
+
+    c_index_group_score = 0
+    c_td_index_group_score = 0
+    for i in range(len(c_index_group) - 1):
+        for j in range(i + 1, len(c_index_group)):
+            temp1 = np.abs(c_index_group[i] - c_index_group[j])
+            temp2 = np.abs(c_td_index_group[i] - c_td_index_group[j])
+            if temp1 > c_index_group_score:
+                c_index_group_score = temp1
+            if temp2 > c_td_index_group_score:
+                c_td_index_group_score = temp2
+    return c_index_group_score, c_td_index_group_score
