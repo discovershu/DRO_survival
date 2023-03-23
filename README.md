@@ -97,10 +97,12 @@ python plot.py
 ## Citation
 Please kindly consider citing our paper in your publications. 
 ```bash
-@article{hu2022distributionally,
+@inproceedings{hu2022distributionally,
   title={Distributionally Robust Survival Analysis: A Novel Fairness Loss Without Demographics},
   author={Hu, Shu and Chen, George H},
-  journal={arXiv preprint arXiv:2211.10508},
-  year={2022}
+  booktitle={Machine Learning for Health},
+  pages={62--87},
+  year={2022},
+  organization={PMLR}
 }
 ```
