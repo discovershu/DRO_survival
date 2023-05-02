@@ -45,20 +45,32 @@ class negLogLikelihood_per_sample_for_splitting(nn.Module):
         E = targets
         hazard_ratio = torch.exp(risk)
         hazard_ratio_refer = torch.exp(refer_prediction[:,0])
-        partial_sum_list = []
-        for index in range(time.shape[0]):
-            refer_time_list = refer_time.clone().tolist()
-            refer_time_list.append(time[index].item())
-            hazard_ratio_refer_list = hazard_ratio_refer.clone().tolist()
-            hazard_ratio_refer_list.append(hazard_ratio[index].item())
-            selected_time = torch.FloatTensor(refer_time_list)-time[index]
-            selected_time[selected_time >= 0] = 1
-            selected_time[selected_time < 0] = 0
-            partial_sum_list.append(torch.sum(selected_time*torch.FloatTensor(hazard_ratio_refer_list)).item())
+        
+        ones_1 = torch.ones((1,risk.shape[0]))
+        mat_1 = refer_time.view(refer_time.shape[0],1).matmul(ones_1)
+        ones_2 = torch.ones((refer_prediction.shape[0], 1))
+        mat_2 = ones_2.matmul(time.view(time.shape[0],1).transpose(0, 1))
+        mat_all = ((mat_1-mat_2)>=0).type(torch.float)
 
-        log_risk = torch.log(torch.FloatTensor(partial_sum_list).view(-1, 1))
-        uncensored_likelihood = risk - log_risk
+        hazard_ratio_refer_sum = hazard_ratio_refer.view(hazard_ratio_refer.shape[0], 1).transpose(0, 1).matmul(mat_all)
+        partial_sum = hazard_ratio + hazard_ratio_refer_sum.transpose(0, 1)
+        uncensored_likelihood = risk - torch.log(partial_sum)
         censored_likelihood = -uncensored_likelihood.transpose(0, 1) * E.float()
+        
+#         partial_sum_list = []
+#         for index in range(time.shape[0]):
+#             refer_time_list = refer_time.clone().tolist()
+#             refer_time_list.append(time[index].item())
+#             hazard_ratio_refer_list = hazard_ratio_refer.clone().tolist()
+#             hazard_ratio_refer_list.append(hazard_ratio[index].item())
+#             selected_time = torch.FloatTensor(refer_time_list)-time[index]
+#             selected_time[selected_time >= 0] = 1
+#             selected_time[selected_time < 0] = 0
+#             partial_sum_list.append(torch.sum(selected_time*torch.FloatTensor(hazard_ratio_refer_list)).item())
+
+#         log_risk = torch.log(torch.FloatTensor(partial_sum_list).view(-1, 1))
+#         uncensored_likelihood = risk - log_risk
+#         censored_likelihood = -uncensored_likelihood.transpose(0, 1) * E.float()
 
         return censored_likelihood
 #%% linear Cox PH model
