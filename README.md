@@ -5,7 +5,7 @@ Shu Hu, George H. Chen
 
 _________________
 
-Some of codes are extracted from  [FairSurv](https://github.com/kkeya1/FairSurv).
+Some of codes are extracted from  [FairSurv](https://github.com/kkeya1/FairSurv) and [SODEN](https://github.com/jiaqima/SODEN).
 
 ## Requirements
 
@@ -14,34 +14,35 @@ To install requirements:
 ```setup
 pip install -r requirements.txt
 ```
+Please also consider to install necessary packages from the SODEN. 
 
 ## How to run Dro-COX code
 ### 1. To run Dro-COX on FLC
 #### For FLC (Linear), 
  ```test
-python -u run_dro_cox.py --dataset FLC --model Linear --eps 0.15 --seed 7 > FLC_Linear_joint_dro_split.log 2>&1 & 
+python -u run_dro_cox.py --dataset FLC --model Linear --eps 0.15 --seed 7 > FLC_Linear_joint_dro.log 2>&1 & 
 ```
 #### For FLC (MLP), 
  ```test
-python -u run_dro_cox.py --dataset FLC --model MLP --eps 0.3 --seed 7 > FLC_MLP_joint_dro_split.log 2>&1 &  
+python -u run_dro_cox.py --dataset FLC --model MLP --eps 0.3 --seed 7 > FLC_MLP_joint_dro.log 2>&1 &  
 ```
 ### 2. To run Dro-COX on SUPPORT
 #### For SUPPORT (Linear), 
  ```test
-python -u run_dro_cox.py --dataset SUPPORT --model Linear --eps 0.15 --seed 7 > SUPPORT_Linear_joint_dro_split.log 2>&1 & 
+python -u run_dro_cox.py --dataset SUPPORT --model Linear --eps 0.15 --seed 7 > SUPPORT_Linear_joint_dro.log 2>&1 & 
 ```
 #### For SUPPORT (MLP), 
  ```test
-python -u run_dro_cox.py --dataset SUPPORT --model MLP --eps 0.5 --seed 7 > SUPPORT_MLP_joint_dro_split.log 2>&1 & 
+python -u run_dro_cox.py --dataset SUPPORT --model MLP --eps 0.5 --seed 7 > SUPPORT_MLP_joint_dro.log 2>&1 & 
 ```
 ### 3. To run Dro-COX on SEER
 #### For SEER (Linear), 
  ```test
-python -u run_dro_cox.py --dataset SEER --model Linear --eps 0.2 --seed 7 > SEER_Linear_joint_dro_split.log 2>&1 &
+python -u run_dro_cox.py --dataset SEER --model Linear --eps 0.2 --seed 7 > SEER_Linear_joint_dro.log 2>&1 &
 ```
 #### For SEER (MLP), 
  ```test
-python -u run_dro_cox.py --dataset SEER --model MLP --eps 0.15 --seed 7 > SEER_MLP_joint_dro_split.log 2>&1 & 
+python -u run_dro_cox.py --dataset SEER --model MLP --eps 0.15 --seed 7 > SEER_MLP_joint_dro.log 2>&1 & 
 ```
 
 ## How to run Dro-COX (SPLIT) code
@@ -94,15 +95,69 @@ Setting dataset = 'SEER' in plot.py
 python plot.py
 ```
 
+## How to run Dro-DeepHit code
+### 1. To run Dro-DeepHit on FLC
+#### For FLC (MLP), 
+ ```test
+python -u run_dro_deephit.py --dataset FLC --model MLP --eps 0.3 --seed 7 > FLC_MLP_joint_dro_deephit.log 2>&1 &  
+```
+### 2. To run Dro-DeepHit on SUPPORT
+#### For SUPPORT (MLP), 
+ ```test
+python -u run_dro_deephit.py --dataset SUPPORT --model MLP --eps 0.5 --seed 7 > SUPPORT_MLP_joint_dro_deephit.log 2>&1 & 
+```
+### 3. To run Dro-DeepHit on SEER
+#### For SEER (MLP), 
+ ```test
+python -u run_dro_deephit.py --dataset SEER --model MLP --eps 0.15 --seed 7 > SEER_MLP_joint_dro_deephit.log 2>&1 & 
+```
+
+## How to run Dro-DeepHit (SPLIT) code
+### 1. To run Dro-DeepHit (SPLIT) on FLC
+#### For FLC (MLP), 
+ ```test
+python -u run_dro_deephit_split.py --dataset FLC --model MLP --lr 0.0001 --eps 0.05 --seed 7 > FLC_MLP_joint_dro_deephit_split.log 2>&1 &  
+```
+### 2. To run Dro-COX (SPLIT) on SUPPORT
+#### For SUPPORT (MLP), 
+ ```test
+python -u run_dro_deephit_split.py --dataset SUPPORT --model MLP --lr 0.0001 --eps 0.2 --seed 7 > SUPPORT_MLP_joint_dro_deephit_split.log 2>&1 & 
+```
+### 3. To run Dro-COX (SPLIT) on SEER
+#### For SEER (MLP), 
+ ```test
+python -u run_dro_deephit_split.py --dataset SEER --model MLP --lr 0.0001 --eps 0.2 --seed 7 > SEER_MLP_joint_dro_deephit_split.log 2>&1 & 
+```
+
+## How to run Dro-SODEN code
+Please first read the settings of the original SODEN code and then use our method.
+
+### 1. To run Dro-SODEN on FLC
+#### For FLC (MLP), 
+ ```test
+python -u ./SODEN/main_DRO_COX_ODE.py --dataset flc > FLC_MLP_joint_dro_SODEN.log 2>&1 &  
+```
+### 2. To run Dro-SODEN on SUPPORT
+#### For SUPPORT (MLP), 
+ ```test
+python -u ./SODEN/main_DRO_COX_ODE.py --dataset support > SUPPORT_MLP_joint_dro_SODEN.log 2>&1 & 
+```
+### 3. To run Dro-SODEN on SEER
+#### For SEER (MLP), 
+ ```test
+python -u ./SODEN/main_DRO_COX_ODE.py --dataset seer > SEER_MLP_joint_dro_SODEN.log 2>&1 & 
+```
+
+
+
+
 ## Citation
 Please kindly consider citing our paper in your publications. 
 ```bash
-@inproceedings{hu2022distributionally,
+@article{hu2022drocox,
   title={Distributionally Robust Survival Analysis: A Novel Fairness Loss Without Demographics},
-  author={Hu, Shu and Chen, George H},
-  booktitle={Machine Learning for Health},
-  pages={62--87},
-  year={2022},
-  organization={PMLR}
+  author={Shu Hu and George H. Chen},
+  journal={ArXiv},
+  year={2022}
 }
 ```
