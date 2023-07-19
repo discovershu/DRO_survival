@@ -154,10 +154,12 @@ python -u ./SODEN/main_DRO_COX_ODE.py --dataset seer > SEER_MLP_joint_dro_SODEN.
 ## Citation
 Please kindly consider citing our paper in your publications. 
 ```bash
-@article{hu2022drocox,
-  title={Distributionally Robust Survival Analysis: A Novel Fairness Loss Without Demographics},
-  author={Shu Hu and George H. Chen},
-  journal={ArXiv},
-  year={2022}
+@inproceedings{hu2022distributionally,
+  title={Distributionally robust survival analysis: A novel fairness loss without demographics},
+  author={Hu, Shu and Chen, George H},
+  booktitle={Machine Learning for Health},
+  pages={62--87},
+  year={2022},
+  organization={PMLR}
 }
 ```
