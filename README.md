@@ -118,12 +118,12 @@ python -u run_dro_deephit.py --dataset SEER --model MLP --eps 0.15 --seed 7 > SE
  ```test
 python -u run_dro_deephit_split.py --dataset FLC --model MLP --lr 0.0001 --eps 0.05 --seed 7 > FLC_MLP_joint_dro_deephit_split.log 2>&1 &  
 ```
-### 2. To run Dro-COX (SPLIT) on SUPPORT
+### 2. To run Dro-DeepHit (SPLIT) on SUPPORT
 #### For SUPPORT (MLP), 
  ```test
 python -u run_dro_deephit_split.py --dataset SUPPORT --model MLP --lr 0.0001 --eps 0.2 --seed 7 > SUPPORT_MLP_joint_dro_deephit_split.log 2>&1 & 
 ```
-### 3. To run Dro-COX (SPLIT) on SEER
+### 3. To run Dro-DeepHit (SPLIT) on SEER
 #### For SEER (MLP), 
  ```test
 python -u run_dro_deephit_split.py --dataset SEER --model MLP --lr 0.0001 --eps 0.2 --seed 7 > SEER_MLP_joint_dro_deephit_split.log 2>&1 & 
@@ -146,6 +146,24 @@ python -u ./SODEN/main_DRO_COX_ODE.py --dataset support > SUPPORT_MLP_joint_dro_
 #### For SEER (MLP), 
  ```test
 python -u ./SODEN/main_DRO_COX_ODE.py --dataset seer > SEER_MLP_joint_dro_SODEN.log 2>&1 & 
+```
+
+## How to run the Exact DRO Cox code
+
+### 1. To run the Exact DRO Cox on FLC
+#### For FLC (MLP), 
+ ```test
+python -u run_dro_cox_full.py --dataset FLC > FLC_MLP_joint_dro_cox_full.log 2>&1 &  
+```
+### 2. To run the Exact DRO Cox on SUPPORT
+#### For SUPPORT (MLP), 
+ ```test
+python -u run_dro_cox_full.py --dataset support > SUPPORT_MLP_joint_dro_cox_full.log 2>&1 & 
+```
+### 3. To run the Exact DRO Cox on SEER
+#### For SEER (MLP), 
+ ```test
+python -u run_dro_cox_full.py --dataset seer > SEER_MLP_joint_dro_cox_full.log 2>&1 & 
 ```
 
 
