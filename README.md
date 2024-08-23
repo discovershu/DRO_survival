@@ -8,7 +8,7 @@ Shu Hu, George H. Chen
 
 [![Python](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/)
 
-This repository is the official implementation of our two papers "Distributionally Robust Survival Analysis: A Novel Fairness Loss Without Demographics" (ML4H, 2022) and  "Fairness in Survival Analysis with Distributionally Robust Optimization" (JMLR, 2024).
+This repository is the official implementation of our two papers "[Distributionally Robust Survival Analysis: A Novel Fairness Loss Without Demographics](https://proceedings.mlr.press/v193/hu22a.html)" (ML4H, 2022) and  "Fairness in Survival Analysis with Distributionally Robust Optimization" (JMLR, 2024, To appear).
 
 _________________
 
