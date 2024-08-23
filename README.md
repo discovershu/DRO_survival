@@ -1,6 +1,8 @@
-## Distributionally Robust Survival Analysis: A Novel Fairness Loss Without Demographics
+## Paper 1. Distributionally Robust Survival Analysis: A Novel Fairness Loss Without Demographics
 
-## Fairness in Survival Analysis with Distributionally Robust Optimization
+Shu Hu, George H. Chen
+
+## Paper 2. Fairness in Survival Analysis with Distributionally Robust Optimization
 
 Shu Hu, George H. Chen
 
