@@ -1,11 +1,18 @@
 ## Distributionally Robust Survival Analysis: A Novel Fairness Loss Without Demographics
+
+## Fairness in Survival Analysis with Distributionally Robust Optimization
+
 Shu Hu, George H. Chen
 
 [![Python](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/)
 
+This repository is the official implementation of our two papers "Distributionally Robust Survival Analysis: A Novel Fairness Loss Without Demographics" (ML4H, 2022) and  "Fairness in Survival Analysis with Distributionally Robust Optimization" (JMLR, 2024).
+
 _________________
 
-Some of codes are extracted from  [FairSurv](https://github.com/kkeya1/FairSurv) and [SODEN](https://github.com/jiaqima/SODEN).
+Some of the codes are extracted from  [FairSurv](https://github.com/kkeya1/FairSurv) and [SODEN](https://github.com/jiaqima/SODEN).
+
+If you would like to use the SEER dataset, you should request access from https://seer.cancer.gov/data/.
 
 ## Requirements
 
